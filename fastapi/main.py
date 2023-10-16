@@ -129,26 +129,15 @@ from pydantic import BaseModel
 
 
 # ========================================================
+from typing import List, Union
 
-from typing import Union
-
-from fastapi import FastAPI
-from pydantic import BaseModel
-
-
-class Item(BaseModel):
-    name: str
-    description: Union[str, None] = None
-    price: float
-    tax: Union[float, None] = None
-
+from fastapi import FastAPI, Query
+from typing_extensions import Annotated
 
 app = FastAPI()
 
 
-@app.put("/items/{item_id}")
-async def create_item(item_id: int, item: Item, q: Union[str, None] = None):
-    result = {"item_id": item_id, **item.dict()}
-    if q:
-        result.update({"q": q})
-    return result
+@app.get("/items/")
+async def read_items(q: Annotated[Union[List[str], None], Query()] = None):
+    query_items = {"q": q}
+    return query_items
