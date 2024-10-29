@@ -22,6 +22,9 @@ mv ~/Downloads/{정확한_폴더_이름}/chromedriver /opt/homebrew/bin/
 # 권한 설정
 chmod +x /opt/homebrew/bin/chromedriver
 
+# 만약에 권한 설정할때 ‘chromedriver’은(는) Apple에서 악성 소프트웨어가 있는지 확인할 수 없기 때문에 열 수 없습니다. 에러가 뜬다면 아래 실행
+xattr -d com.apple.quarantine /opt/homebrew/bin/chromedriver
+
 # 크롬 버전확인
 chromedriver --version
 ```
